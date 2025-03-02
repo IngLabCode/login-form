@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import "./ForgotPassword.css";
 import "./ResetPassword.css";
 
 const ResetPassword = () => {
@@ -19,12 +18,12 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedEmail = sessionStorage.getItem("userEmail");
+    const storedEmail = localStorage.getItem("userEmail");
     if (storedEmail) {
-      setEmail(storedEmail);
+      setEmail(storedEmail); 
     } else {
       setMessage("⚠ Email tapılmadı. Zəhmət olmasa, yenidən cəhd edin.");
-      setTimeout(() => navigate("/forgot-password"), 3000);
+      setTimeout(() => navigate("/forgot-password"), 3000); 
     }
   }, [navigate]);
 
@@ -73,8 +72,8 @@ const ResetPassword = () => {
 
       if (response.ok) {
         setMessage("✅ Şifrə uğurla yeniləndi!");
-        sessionStorage.removeItem("userEmail");
-        setTimeout(() => navigate("/"), 2000);
+        localStorage.removeItem("userEmail");
+        setTimeout(() => navigate("/login"), 2000);
       } else {
         setMessage(`❌ ${data.message || "Xəta baş verdi. Yenidən cəhd edin."}`);
       }

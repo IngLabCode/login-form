@@ -10,15 +10,19 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (isSubmitting) return;
-    setIsSubmitting(true);
 
-    if (!email) {
-      setMessage("Zəhmət olmasa emailinizi daxil edin!");
-      setIsSubmitting(false);
+    if (!email.trim()) {
+      setMessage("Zəhmət olmasa email ünvanınızı daxil edin.");
       return;
     }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setMessage("Düzgün email ünvanı daxil edin.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage("");
 
     try {
       const response = await fetch("http://localhost:8081/api/v1/auth/forgot-password", {
@@ -30,11 +34,11 @@ const ForgotPassword = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage("OTP kodu emailinizə göndərildi!");
-        sessionStorage.setItem("userEmail", email);
-        setTimeout(() => navigate("/reset-password"), 1000);
+        setMessage("✅ OTP kodu email ünvanınıza göndərildi.");
+        localStorage.setItem("userEmail", email); 
+        setTimeout(() => navigate("/reset-password"), 2000); 
       } else {
-        setMessage(data.message || "Xəta baş verdi.");
+        setMessage(data.message || "Xəta baş verdi. Yenidən cəhd edin.");
       }
     } catch (error) {
       setMessage("Bağlantı xətası! Zəhmət olmasa internet bağlantınızı yoxlayın.");
@@ -45,22 +49,23 @@ const ForgotPassword = () => {
 
   return (
     <div className="form-container">
-     <h2 style={{ color: "#007bff" }}>Şifrəni Unutdun?</h2>
+      <h2 style={{ color: "#007bff" }}>Şifrəni Unutdum</h2>
       {message && (
-        <p style={{ color: message.includes("göndərildi") ? "green" : "red", fontWeight: "bold" }}>
+        <p className={message.includes("✅") ? "message success" : "message error"}>
           {message}
         </p>
       )}
       <form onSubmit={handleSubmit} className="form">
         <input
           type="email"
-          placeholder="Emailinizi daxil edin"
+          name="email"
+          placeholder="Email ünvanınızı daxil edin"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Göndərilir..." : "Göndər"}
+        <button type="submit" disabled={isSubmitting} className="primary-button">
+          {isSubmitting ? "Göndərilir..." : "OTP Göndər"}
         </button>
       </form>
     </div>
