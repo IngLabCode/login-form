@@ -1,0 +1,127 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #e5ebef;
+  overflow: hidden; 
+}
+
+.form-container {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  max-width: 100%; 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  
+}
+
+.form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease-in-out, background 0.3s;
+  box-sizing: border-box; 
+}
+
+.form input:focus {
+  outline: none;
+  border-color: #0056b3;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.2);
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; 
+  box-sizing: border-box; 
+}
+
+.password-container span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+}
+
+.password-container span:hover {
+  color: #0056b3;
+}
+
+.form p {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.form p span {
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.form p span:hover {
+  color: #0056b3;
+}
+
+.form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 86, 179, 0.2);
+}
+
+.form button:hover {
+  background-color: #004494;
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 400px) {
+  .form-container {
+    width: 90%;
+  }
+
+  .form p {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .form p span {
+    margin-bottom: 5px;
+  }
+}
